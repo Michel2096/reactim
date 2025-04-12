@@ -1,12 +1,22 @@
 import './App.css';
-import UsersList from './components/userList/UsersList';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import UsersList from '../src/components/userList/UsersList';
+import UserEdit from '../src/components/userEdit/UserEdit';
 import useUsers from './hooks/useUsers';
+import Login from '../src/components/login/login';
 
 function App() {
-  const {users} = useUsers();
+  const { users } = useUsers();
+
   return (
     <div className="App">
-      <UsersList users={users}/>
+      <Router>
+        <Routes>
+          <Route path="/users" element={<UsersList users={users} />} />
+          <Route path="/edit/:id" element={<UserEdit />} />
+          <Route path="/" element={<Login />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
